@@ -41,37 +41,37 @@ const activities = [
   {
     title: "Breeders",
     desc: "5 million+ hatching eggs per annum from our breeding farm at Hassan District with strict bio-security practices.",
-    img: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Breeders.jpg",
     num: "01",
   },
   {
     title: "Hatcheries",
     desc: "14 million+ chicks per annum from 2 own hatcheries at Mangalore and Kundapura, functioning round the clock.",
-    img: "https://images.unsplash.com/photo-1569428034239-f9565e32e224?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Hatcheries.webp",
     num: "02",
   },
   {
     title: "Feed Mills",
     desc: "State-of-the-art crumbs & pellet mill at Thumbe with 6,000+ tons monthly production capacity.",
-    img: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Feed Mills.jpg",
     num: "03",
   },
   {
     title: "Farming",
     desc: "400+ contract farmers producing healthy broilers, creating rural employment and economic sustainability.",
-    img: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Farming.jpg",
     num: "04",
   },
   {
     title: "Processing",
     desc: "Conveyorised dressing unit at Ganjimutt dressing 1,000 birds per hour, with ETP & bio gas plants.",
-    img: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Processing.jpg",
     num: "05",
   },
   {
     title: "Retailing",
     desc: "Five retail outlets across Mangalore delivering Halal chilled chicken to restaurants and the public.",
-    img: "https://images.unsplash.com/photo-1604503468506-a8da13d82571?w=600&h=400&fit=crop&q=80",
+    img: "/images/operations/Retailing.jpg",
     num: "06",
   },
 ];
@@ -86,14 +86,14 @@ const stats = [
 
 /* ── Products ── */
 const products = [
-  { name: "Broiler Hatching Eggs", detail: "Premium fertile eggs from our own breeding farm with strict bio-security", img: `${BASE}/images/banner_images/2.jpg` },
-  { name: "Day Old Chicks", detail: "14M+ DOC annually from 2 hatcheries at Mangalore and Kundapura", img: `${BASE}/images/banner_images/4.jpg` },
-  { name: "Hi-Density Poultry Feeds", detail: "Computerized formulation using the best raw materials available", img: `${BASE}/images/banner_images/9.jpg` },
-  { name: "Broiler Feed Pre-Mixes", detail: "Optimized growth rates with superior feed conversion ratios", img: `${BASE}/images/banner_images/15.jpg` },
-  { name: "Breeder Feed Pre-Mixes", detail: "Balanced nutrients specifically designed for breeder flocks", img: `${BASE}/images/banner_images/7.jpg` },
-  { name: "Live Chicken", detail: "Healthy broilers raised by 400+ contract farmers across the region", img: `${BASE}/gallery_images/1880378147A1-900_600.jpg` },
-  { name: "Fresh Chilled Chicken", detail: "Halal-certified, conveyorised processing at our Ganjimutt plant", img: `${BASE}/gallery_images/2089296197A2.jpg` },
-  { name: "Parent Culls", detail: "Quality parent culls sourced from integrated operations", img: `${BASE}/gallery_images/303128077A3.jpg` },
+  { name: "Broiler Hatching Eggs", detail: "Premium fertile eggs from our own breeding farm with strict bio-security", img: "/images/products/Broiler Hatching Eggs.jpg" },
+  { name: "Day Old Chicks", detail: "14M+ DOC annually from 2 hatcheries at Mangalore and Kundapura", img: "/images/products/Day Old Chicks.jpg" },
+  { name: "Hi-Density Poultry Feeds", detail: "Computerized formulation using the best raw materials available", img: "/images/products/Hi-Density Poultry Feeds.jpg" },
+  { name: "Broiler Feed Pre-Mixes", detail: "Optimized growth rates with superior feed conversion ratios", img: "/images/products/Broiler Feed Pre-Mixes.jpeg" },
+  { name: "Breeder Feed Pre-Mixes", detail: "Balanced nutrients specifically designed for breeder flocks", img: "/images/products/Breeder Feed Pre-Mixes.jpg" },
+  { name: "Live Chicken", detail: "Healthy broilers raised by 400+ contract farmers across the region", img: "/images/products/Live Chicken.jpg" },
+  { name: "Fresh Chilled Chicken", detail: "Halal-certified, conveyorised processing at our Ganjimutt plant", img: "/images/products/Fresh Chilled Chicken.jpg" },
+  { name: "Parent Culls", detail: "Quality parent culls sourced from integrated operations", img: "/images/products/Parent Culls.jpg" },
 ];
 
 const gallery = [

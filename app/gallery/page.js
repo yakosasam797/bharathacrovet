@@ -3,7 +3,7 @@
 import HeroBanner from "../components/HeroBanner";
 import AnimateOnScroll from "../components/AnimateOnScroll";
 import styles from "./gallery.module.css";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const BASE = "https://www.bharathagrovet.com";
 
@@ -40,6 +40,26 @@ const photos = [
 export default function GalleryPage() {
     const [lightbox, setLightbox] = useState(null);
 
+    const goNext = useCallback(() => {
+        setLightbox((prev) => (prev + 1) % photos.length);
+    }, []);
+
+    const goPrev = useCallback(() => {
+        setLightbox((prev) => (prev - 1 + photos.length) % photos.length);
+    }, []);
+
+    /* Keyboard support: Escape, ←, → */
+    useEffect(() => {
+        if (lightbox === null) return;
+        const handleKey = (e) => {
+            if (e.key === "Escape") setLightbox(null);
+            if (e.key === "ArrowRight") goNext();
+            if (e.key === "ArrowLeft") goPrev();
+        };
+        window.addEventListener("keydown", handleKey);
+        return () => window.removeEventListener("keydown", handleKey);
+    }, [lightbox, goNext, goPrev]);
+
     return (
         <>
             <HeroBanner
@@ -49,12 +69,13 @@ export default function GalleryPage() {
                 compact
             />
 
-            <section className="section">
+            <section className="section section--cream">
                 <div className="container">
                     <AnimateOnScroll>
                         <div className={styles.intro}>
                             <span className="overline" style={{ justifyContent: "center" }}>Visual Journey</span>
                             <h2 className="heading-3">A Glimpse Into Our Operations</h2>
+                            <div className="accent-bar accent-bar--center" style={{ marginTop: "1rem" }} />
                             <p className="text-muted" style={{ marginTop: "1rem", maxWidth: "600px", margin: "1rem auto 0" }}>
                                 From our breeding farms and hatcheries to our feed mills, processing
                                 units, and retail outlets — see the world of Bharath Agrovet Industries.
@@ -70,6 +91,7 @@ export default function GalleryPage() {
                                     onClick={() => setLightbox(i)}
                                     role="button"
                                     tabIndex={0}
+                                    onKeyDown={(e) => e.key === "Enter" && setLightbox(i)}
                                 >
                                     <img src={photo.src} alt={photo.caption} loading="lazy" />
                                     <div className={styles.galleryOverlay}>
@@ -96,19 +118,13 @@ export default function GalleryPage() {
                     />
                     <p className={styles.lightboxCaption}>{photos[lightbox].caption}</p>
                     <div className={styles.lightboxNav} onClick={(e) => e.stopPropagation()}>
-                        <button
-                            className={styles.lightboxArrow}
-                            onClick={() => setLightbox((lightbox - 1 + photos.length) % photos.length)}
-                        >
+                        <button className={styles.lightboxArrow} onClick={goPrev}>
                             ←
                         </button>
                         <span className={styles.lightboxCount}>
                             {lightbox + 1} / {photos.length}
                         </span>
-                        <button
-                            className={styles.lightboxArrow}
-                            onClick={() => setLightbox((lightbox + 1) % photos.length)}
-                        >
+                        <button className={styles.lightboxArrow} onClick={goNext}>
                             →
                         </button>
                     </div>

@@ -10,18 +10,37 @@ export const metadata = {
 const BASE = "https://www.bharathagrovet.com";
 
 const benefits = [
-    { icon: "❤️", title: "Heart Health", desc: "Rich in medium-chain triglycerides (MCTs) that support cardiovascular health." },
-    { icon: "🧠", title: "Brain Function", desc: "MCTs provide an immediate and clean energy source for brain cells." },
-    { icon: "💪", title: "Immune Boost", desc: "Contains lauric acid, a powerful compound with antimicrobial properties." },
-    { icon: "🌿", title: "Skin Care", desc: "Natural moisturizer with antibacterial properties for healthy skin." },
-    { icon: "⚡", title: "Energy", desc: "MCTs are rapidly absorbed and converted to energy — ideal for active lifestyles." },
-    { icon: "🦷", title: "Oral Health", desc: "Traditional oil-pulling with VCO supports oral hygiene and gum health." },
-    { icon: "🫁", title: "Anti-Inflammatory", desc: "Rich in antioxidants that help reduce inflammation and oxidative stress." },
-    { icon: "🌡️", title: "Cooking", desc: "High smoke point makes it ideal for sautéing, frying, and baking." },
+    { title: "Heart Health", desc: "Rich in medium-chain triglycerides (MCTs) that support cardiovascular health." },
+    { title: "Brain Function", desc: "MCTs provide an immediate and clean energy source for brain cells." },
+    { title: "Immune Boost", desc: "Contains lauric acid, a powerful compound with antimicrobial properties." },
+    { title: "Skin Care", desc: "Natural moisturizer with antibacterial properties for healthy skin." },
+    { title: "Energy", desc: "MCTs are rapidly absorbed and converted to energy — ideal for active lifestyles." },
+    { title: "Oral Health", desc: "Traditional oil-pulling with VCO supports oral hygiene and gum health." },
+    { title: "Anti-Inflammatory", desc: "Rich in antioxidants that help reduce inflammation and oxidative stress." },
+    { title: "Cooking", desc: "High smoke point makes it ideal for sautéing, frying, and baking." },
 ];
 
 const certs = [
-    "FSSAI Licensed", "ISO 22000", "Organic Certified", "HALAL Certified",
+    {
+        name: "FSSAI",
+        full: "Food Safety & Standards Authority of India",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/20/Food_Safety_and_Standards_Authority_of_India_%28FSSAI%29_logo.png/220px-Food_Safety_and_Standards_Authority_of_India_%28FSSAI%29_logo.png",
+    },
+    {
+        name: "ISO 22000",
+        full: "Food Safety Management System",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/ISO_Logo_%28Red_square%29.svg/200px-ISO_Logo_%28Red_square%29.svg.png",
+    },
+    {
+        name: "HALAL",
+        full: "Halal Certification Authority",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Halal_logo.svg/200px-Halal_logo.svg.png",
+    },
+    {
+        name: "Organic",
+        full: "Certified Organic Product",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/India_Organic_Logo.svg/200px-India_Organic_Logo.svg.png",
+    },
 ];
 
 export default function IndousBioPage() {
@@ -67,12 +86,12 @@ export default function IndousBioPage() {
 
             {/* VCO Banner */}
             <div className={styles.vcoBanner}>
-                <img src={`${BASE}/images/banner_images/6.png`} alt="VCO" className={styles.vcoBg} />
+                <img src={`${BASE}/images/banner_images/5.png`} alt="VCO" className={styles.vcoBg} />
                 <div className={styles.vcoOverlay}>
                     <AnimateOnScroll>
                         <div className={styles.vcoContent}>
                             <span className={styles.vcoTag}>★ Premium Quality</span>
-                            <h2 className="heading-1 text-white">Virgin Coconut Oil</h2>
+                            <h2 className="heading-2 text-white">Virgin Coconut Oil</h2>
                             <p className={styles.vcoDesc}>
                                 Cold-pressed from fresh coconut meat. No chemicals.
                                 No heat processing. Pure, natural, and nutrient-rich.
@@ -96,7 +115,9 @@ export default function IndousBioPage() {
                         {benefits.map((b, i) => (
                             <AnimateOnScroll key={b.title} delay={(i % 4) + 1}>
                                 <div className={styles.benefitCard}>
-                                    <span className={styles.benefitIcon}>{b.icon}</span>
+                                    <span className={styles.benefitNum}>
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
                                     <h3 className={styles.benefitTitle}>{b.title}</h3>
                                     <p className={styles.benefitDesc}>{b.desc}</p>
                                 </div>
@@ -106,7 +127,7 @@ export default function IndousBioPage() {
                 </div>
             </section>
 
-            {/* Certifications */}
+            {/* Certifications — Logo Cards */}
             <section className={styles.certSection}>
                 <div className={styles.certGrain} />
                 <div className="container" style={{ position: "relative", zIndex: 2 }}>
@@ -120,10 +141,13 @@ export default function IndousBioPage() {
                     </AnimateOnScroll>
                     <div className={styles.certRow}>
                         {certs.map((c, i) => (
-                            <AnimateOnScroll key={c} delay={i + 1}>
-                                <div className={styles.certBadge}>
-                                    <span className={styles.certCheck}>✓</span>
-                                    {c}
+                            <AnimateOnScroll key={c.name} delay={i + 1}>
+                                <div className={styles.certCard}>
+                                    <div className={styles.certLogoWrap}>
+                                        <img src={c.logo} alt={c.name} className={styles.certLogo} />
+                                    </div>
+                                    <h4 className={styles.certName}>{c.name}</h4>
+                                    <p className={styles.certFull}>{c.full}</p>
                                 </div>
                             </AnimateOnScroll>
                         ))}

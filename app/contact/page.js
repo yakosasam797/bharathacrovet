@@ -7,6 +7,20 @@ import { useState } from "react";
 
 const BASE = "https://www.bharathagrovet.com";
 
+const infoCards = [
+    {
+        label: "Registered Office",
+        text: "Bharath Agrovet Industries Pvt. Ltd.\nThumbe, Mangaluru – 574143\nDakshina Kannada, Karnataka, India",
+        num: "01",
+    },
+    {
+        label: "Email",
+        text: "info@bharathagrovet.com",
+        num: "02",
+        link: "mailto:info@bharathagrovet.com",
+    },
+];
+
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
 
@@ -19,7 +33,7 @@ export default function ContactPage() {
     return (
         <>
             <HeroBanner
-                imageSrc={`${BASE}/images/banner_images/21.jpg`}
+                imageSrc={`${BASE}/images/banner_images/17.jpg`}
                 title="Contact Us"
                 subtitle="Get in Touch"
                 compact
@@ -31,7 +45,6 @@ export default function ContactPage() {
                         {/* Form */}
                         <AnimateOnScroll>
                             <div className={styles.formBlock}>
-                                <span className="overline">Send a Message</span>
                                 <h2 className="heading-3" style={{ marginBottom: "0.5rem" }}>
                                     We&apos;d Love to Hear From You
                                 </h2>
@@ -81,62 +94,45 @@ export default function ContactPage() {
                             </div>
                         </AnimateOnScroll>
 
-                        {/* Info Sidebar */}
+                        {/* Info Sidebar — Address, Email + Map */}
                         <AnimateOnScroll delay={2}>
                             <div className={styles.infoBlock}>
-                                <div className={styles.infoCard}>
-                                    <div className={styles.infoIcon}>📍</div>
-                                    <h3 className={styles.infoTitle}>Office Address</h3>
-                                    <p className={styles.infoText}>
-                                        Bharath Agrovet Industries Pvt. Ltd.<br />
-                                        Mangaluru, Karnataka<br />
-                                        India
-                                    </p>
-                                </div>
-                                <div className={styles.infoCard}>
-                                    <div className={styles.infoIcon}>🕐</div>
-                                    <h3 className={styles.infoTitle}>Business Hours</h3>
-                                    <p className={styles.infoText}>
-                                        Monday – Saturday<br />
-                                        9:00 AM – 6:00 PM IST
-                                    </p>
-                                </div>
-                                <div className={styles.infoCard}>
-                                    <div className={styles.infoIcon}>📧</div>
-                                    <h3 className={styles.infoTitle}>Email</h3>
-                                    <p className={styles.infoText}>
-                                        <a href="mailto:info@bharathagrovet.com" className={styles.infoLink}>
-                                            info@bharathagrovet.com
-                                        </a>
-                                    </p>
-                                </div>
-                                <div className={styles.infoCard}>
-                                    <div className={styles.infoIcon}>🌐</div>
-                                    <h3 className={styles.infoTitle}>Website</h3>
-                                    <p className={styles.infoText}>
-                                        <a href="https://www.bharathagrovet.com" target="_blank" rel="noopener noreferrer" className={styles.infoLink}>
-                                            www.bharathagrovet.com
-                                        </a>
-                                    </p>
+                                {infoCards.map((card) => (
+                                    <div key={card.num} className={styles.infoCard}>
+                                        <span className={styles.infoNum}>{card.num}</span>
+                                        <h3 className={styles.infoTitle}>{card.label}</h3>
+                                        {card.link ? (
+                                            <p className={styles.infoText}>
+                                                <a
+                                                    href={card.link}
+                                                    target={card.link.startsWith("http") ? "_blank" : undefined}
+                                                    rel={card.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                                                    className={styles.infoLink}
+                                                >
+                                                    {card.text}
+                                                </a>
+                                            </p>
+                                        ) : (
+                                            <p className={styles.infoText} style={{ whiteSpace: "pre-line" }}>
+                                                {card.text}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+
+                                {/* Google Map */}
+                                <div className={styles.mapCard}>
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.3!2d74.856!3d12.870!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35a43a!2sMangaluru%2C%20Karnataka%2C%20India!5e0!3m2!1sen!2sin!4v1600000000000"
+                                        className={styles.sidebarMap}
+                                        allowFullScreen=""
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                        title="Bharath Agrovet Location — Mangaluru"
+                                    />
                                 </div>
                             </div>
                         </AnimateOnScroll>
-                    </div>
-                </div>
-            </section>
-
-            {/* Map Section */}
-            <section className={styles.mapSection}>
-                <div className={styles.mapPlaceholder}>
-                    <img src={`${BASE}/images/banner_images/18.jpg`} alt="Location" className={styles.mapBg} />
-                    <div className={styles.mapOverlay}>
-                        <div className={styles.mapContent}>
-                            <span className={styles.mapPin}>📍</span>
-                            <h3 className="heading-3 text-white">Mangaluru, Karnataka</h3>
-                            <p style={{ color: "rgba(255,255,255,0.7)", marginTop: "0.5rem" }}>
-                                Coastal Karnataka, India
-                            </p>
-                        </div>
                     </div>
                 </div>
             </section>

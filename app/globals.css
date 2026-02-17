@@ -26,6 +26,8 @@
   --color-white: #FFFFFF;
   --color-overlay: rgba(27, 60, 45, 0.55);
   --color-overlay-dark: rgba(0, 0, 0, 0.45);
+  --color-cta: #5FAD56;
+  --color-cta-dark: #4A9143;
 
   /* Typography */
   --font-heading: 'Inter', -apple-system, sans-serif;

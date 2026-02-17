@@ -10,14 +10,14 @@ export const metadata = {
 const BASE = "https://www.bharathagrovet.com";
 
 const activities = [
-    { icon: "🥚", label: "Breeding Farms" },
-    { icon: "🐣", label: "Hatcheries" },
-    { icon: "🌾", label: "Feed Mills" },
-    { icon: "🏡", label: "Integration Farms" },
-    { icon: "⚙️", label: "Dressing Unit" },
-    { icon: "🏪", label: "Retail Outlets" },
-    { icon: "🌍", label: "Consultancy" },
-    { icon: "📦", label: "Exports" },
+    "Breeding Farms",
+    "Hatcheries",
+    "Feed Mills",
+    "Integration Farms",
+    "Dressing Unit",
+    "Retail Outlets",
+    "Consultancy",
+    "Exports",
 ];
 
 const policyItems = [
@@ -85,11 +85,11 @@ export default function AboutPage() {
                         </div>
                     </AnimateOnScroll>
                     <div className={styles.activitiesRow}>
-                        {activities.map((a, i) => (
-                            <AnimateOnScroll key={a.label} delay={i + 1}>
+                        {activities.map((label, i) => (
+                            <AnimateOnScroll key={label} delay={i + 1}>
                                 <div className={styles.activityPill}>
-                                    <span className={styles.activityIcon}>{a.icon}</span>
-                                    <span>{a.label}</span>
+                                    <span className={styles.activityDot} />
+                                    <span>{label}</span>
                                 </div>
                             </AnimateOnScroll>
                         ))}
@@ -139,7 +139,7 @@ export default function AboutPage() {
                     <div className={styles.vmGrid}>
                         <AnimateOnScroll>
                             <div className={styles.vmCard}>
-                                <span className={styles.vmIconBig}>🎯</span>
+                                <span className={styles.vmLabel}>01</span>
                                 <h3 className="heading-3 text-white" style={{ marginBottom: "1.25rem" }}>
                                     Vision Statement
                                 </h3>
@@ -153,7 +153,7 @@ export default function AboutPage() {
                         </AnimateOnScroll>
                         <AnimateOnScroll delay={2}>
                             <div className={styles.vmCard}>
-                                <span className={styles.vmIconBig}>🚀</span>
+                                <span className={styles.vmLabel}>02</span>
                                 <h3 className="heading-3 text-white" style={{ marginBottom: "1.25rem" }}>
                                     Mission
                                 </h3>
@@ -167,6 +167,25 @@ export default function AboutPage() {
                             </div>
                         </AnimateOnScroll>
                     </div>
+                </div>
+            </section>
+
+            {/* Bottom CTA */}
+            <section className={styles.ctaSection}>
+                <div className={styles.ctaGrain} />
+                <div className="container" style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
+                    <AnimateOnScroll>
+                        <span className="overline" style={{ justifyContent: "center" }}>Discover More</span>
+                        <h2 className="heading-3 text-white" style={{ marginBottom: "1rem" }}>
+                            See Our Operations in Action
+                        </h2>
+                        <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 550, margin: "0 auto 2rem", lineHeight: 1.8 }}>
+                            From breeding and hatching to feed production and retail — explore how we deliver quality at every step.
+                        </p>
+                        <a href="/activities" className="btn btn--gold">
+                            Explore Activities →
+                        </a>
+                    </AnimateOnScroll>
                 </div>
             </section>
         </>

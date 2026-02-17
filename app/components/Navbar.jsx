@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 
@@ -16,13 +16,43 @@ const navLinks = [
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const lastScrollY = useRef(0);
+    const ticking = useRef(false);
+
+    const handleScroll = useCallback(() => {
+        if (ticking.current) return;
+        ticking.current = true;
+
+        requestAnimationFrame(() => {
+            const currentY = window.scrollY;
+            const isScrolled = currentY > 60;
+
+            setScrolled(isScrolled);
+
+            // Only hide/show when scrolled past the hero area
+            if (currentY > 120) {
+                if (currentY > lastScrollY.current + 8) {
+                    // Scrolling DOWN — hide navbar
+                    setHidden(true);
+                } else if (currentY < lastScrollY.current - 8) {
+                    // Scrolling UP — show navbar
+                    setHidden(false);
+                }
+            } else {
+                setHidden(false);
+            }
+
+            lastScrollY.current = currentY;
+            ticking.current = false;
+        });
+    }, []);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 60);
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [handleScroll]);
 
     useEffect(() => {
         if (menuOpen) {
@@ -33,8 +63,14 @@ export default function Navbar() {
         return () => { document.body.style.overflow = ""; };
     }, [menuOpen]);
 
+    const navbarClass = [
+        styles.navbar,
+        scrolled ? styles.scrolled : "",
+        hidden && !menuOpen ? styles.hidden : "",
+    ].filter(Boolean).join(" ");
+
     return (
-        <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+        <header className={navbarClass}>
             <div className={styles.inner}>
                 <Link href="/" className={styles.logo}>
                     <img
