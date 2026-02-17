@@ -1,0 +1,109 @@
+/* Products Page — Premium */
+
+/* Intro */
+.productsIntro {
+    background: var(--color-bg);
+}
+
+.introGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 5vw, 7rem);
+    align-items: center;
+}
+
+.productFeatImage {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.08);
+}
+
+.productFeatImage img {
+    width: 100%;
+    display: block;
+}
+
+/* Product Cards */
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+}
+
+.productCard {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: all var(--duration-slow) var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.productCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.1);
+    border-color: transparent;
+}
+
+.productIconWrap {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+}
+
+.productIcon {
+    font-size: 1.5rem;
+}
+
+.productName {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.65rem;
+}
+
+.productDesc {
+    font-size: var(--text-sm);
+    color: var(--color-gray);
+    line-height: 1.75;
+    flex: 1;
+}
+
+.productBar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold), transparent);
+    margin-top: var(--space-md);
+    border-radius: 2px;
+    transition: background var(--duration-normal);
+}
+
+.productCard:hover .productBar {
+    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+}
+
+@media (max-width: 1024px) {
+    .productsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .introGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .productsGrid {
+        grid-template-columns: 1fr;
+    }
+}
