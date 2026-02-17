@@ -17,10 +17,6 @@ export default function Footer() {
                                 alt="Bharath Agrovet Logo"
                                 className={styles.footerLogo}
                             />
-                            <div>
-                                <h4 className={styles.brandName}>Bharath Agrovet</h4>
-                                <p className={styles.brandSub}>Industries Pvt. Ltd.</p>
-                            </div>
                         </div>
                         <p className={styles.brandText}>
                             A leading poultry producing company in Mangaluru managed by

@@ -3,7 +3,7 @@
 import AnimateOnScroll from "./components/AnimateOnScroll";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const BASE = "https://www.bharathagrovet.com";
 
@@ -76,24 +76,24 @@ const activities = [
   },
 ];
 
-/* ── Stats (no icons) ── */
+/* ── Stats with descriptions ── */
 const stats = [
-  { number: "5M+", label: "Hatching Eggs Per Year" },
-  { number: "14M+", label: "Chicks Per Year" },
-  { number: "400+", label: "Partner Farmers" },
-  { number: "6,000+", label: "Tons Feed Per Month" },
+  { number: "5M+", label: "Hatching Eggs", desc: "Annually from our breeding farm at Hassan District with strict bio-security." },
+  { number: "14M+", label: "Chicks Per Year", desc: "From 2 own hatcheries at Mangalore and Kundapura, round the clock." },
+  { number: "400+", label: "Partner Farmers", desc: "Producing healthy broilers, creating rural employment across the region." },
+  { number: "6K+", label: "Tons Feed Monthly", desc: "State-of-the-art crumbs & pellet mill at Thumbe with top-grade materials." },
 ];
 
-/* ── Products (no icons) ── */
+/* ── Products ── */
 const products = [
-  { name: "Broiler Hatching Eggs", detail: "Premium fertile eggs from our own breeding farm" },
-  { name: "Day Old Chicks", detail: "14M+ DOC annually from 2 hatcheries" },
-  { name: "Hi-Density Poultry Feeds", detail: "Computerized formulation, best raw materials" },
-  { name: "Broiler Feed Pre-Mixes", detail: "Optimized growth rates and feed conversion" },
-  { name: "Breeder Feed Pre-Mixes", detail: "Balanced nutrients for breeder flocks" },
-  { name: "Live Chicken", detail: "Healthy broilers from 400+ contract farmers" },
-  { name: "Dressed Fresh Chilled Chicken", detail: "Halal-certified, conveyorised processing" },
-  { name: "Parent Culls", detail: "Quality parent culls from integrated operations" },
+  { name: "Broiler Hatching Eggs", detail: "Premium fertile eggs from our own breeding farm with strict bio-security", img: `${BASE}/images/banner_images/2.jpg` },
+  { name: "Day Old Chicks", detail: "14M+ DOC annually from 2 hatcheries at Mangalore and Kundapura", img: `${BASE}/images/banner_images/4.jpg` },
+  { name: "Hi-Density Poultry Feeds", detail: "Computerized formulation using the best raw materials available", img: `${BASE}/images/banner_images/9.jpg` },
+  { name: "Broiler Feed Pre-Mixes", detail: "Optimized growth rates with superior feed conversion ratios", img: `${BASE}/images/banner_images/15.jpg` },
+  { name: "Breeder Feed Pre-Mixes", detail: "Balanced nutrients specifically designed for breeder flocks", img: `${BASE}/images/banner_images/7.jpg` },
+  { name: "Live Chicken", detail: "Healthy broilers raised by 400+ contract farmers across the region", img: `${BASE}/gallery_images/1880378147A1-900_600.jpg` },
+  { name: "Fresh Chilled Chicken", detail: "Halal-certified, conveyorised processing at our Ganjimutt plant", img: `${BASE}/gallery_images/2089296197A2.jpg` },
+  { name: "Parent Culls", detail: "Quality parent culls sourced from integrated operations", img: `${BASE}/gallery_images/303128077A3.jpg` },
 ];
 
 const gallery = [
@@ -105,6 +105,40 @@ const gallery = [
 
 export default function HomePage() {
   const [current, setCurrent] = useState(0);
+  const [opsPage, setOpsPage] = useState(0);
+  const opsTrackRef = useRef(null);
+
+  /* How many cards visible per page — responsive via JS */
+  const getCardsPerPage = useCallback(() => {
+    if (typeof window === "undefined") return 3;
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }, []);
+
+  const [cardsPerPage, setCardsPerPage] = useState(3);
+
+  useEffect(() => {
+    const update = () => setCardsPerPage(getCardsPerPage());
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [getCardsPerPage]);
+
+  const totalOpsPages = Math.ceil(activities.length / cardsPerPage);
+
+  const nextOps = useCallback(() => {
+    setOpsPage((p) => Math.min(p + 1, totalOpsPages - 1));
+  }, [totalOpsPages]);
+
+  const prevOps = useCallback(() => {
+    setOpsPage((p) => Math.max(p - 1, 0));
+  }, []);
+
+  /* Clamp opsPage if totalOpsPages shrinks on resize */
+  useEffect(() => {
+    setOpsPage((p) => Math.min(p, totalOpsPages - 1));
+  }, [totalOpsPages]);
 
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % heroSlides.length);
@@ -244,7 +278,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ===== ACTIVITIES — EDITORIAL JOURNEY ===== */}
+      {/* ===== ACTIVITIES — CARD CAROUSEL ===== */}
       <section className={styles.activitiesSection}>
         <div className="container">
           <AnimateOnScroll>
@@ -256,41 +290,66 @@ export default function HomePage() {
               </p>
             </div>
           </AnimateOnScroll>
-        </div>
 
-        {/* Featured Hero Block */}
-        <AnimateOnScroll>
-          <div className={styles.actHero}>
-            <img src={activities[0].img} alt={activities[0].title} className={styles.actHeroImg} />
-            <div className={styles.actHeroOverlay} />
-            <div className={styles.actHeroContent}>
-              <span className={styles.actHeroNum}>{activities[0].num}</span>
-              <h3 className={styles.actHeroTitle}>{activities[0].title}</h3>
-              <p className={styles.actHeroDesc}>{activities[0].desc}</p>
+          {/* Carousel Viewport */}
+          <div className={styles.opsViewport}>
+            <div
+              className={styles.opsTrack}
+              ref={opsTrackRef}
+              style={{
+                transform: `translateX(-${opsPage * 100}%)`,
+              }}
+            >
+              {activities.map((act) => (
+                <div
+                  className={styles.opsCard}
+                  key={act.num}
+                  style={{ flex: `0 0 calc(${100 / cardsPerPage}% - ${((cardsPerPage - 1) * 20) / cardsPerPage}px)` }}
+                >
+                  <img src={act.img} alt={act.title} className={styles.opsCardImg} />
+                  <div className={styles.opsCardOverlay} />
+                  <div className={styles.opsCardContent}>
+                    <span className={styles.opsCardNum}>{act.num}</span>
+                    <h3 className={styles.opsCardTitle}>{act.title}</h3>
+                    <p className={styles.opsCardDesc}>{act.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </AnimateOnScroll>
 
-        {/* Horizontal Scroll Cards */}
-        <div className={styles.actScroll}>
-          <div className={styles.actScrollTrack}>
-            {activities.slice(1).map((act, i) => (
-              <div className={styles.actScrollCard} key={act.num}>
-                <img src={act.img} alt={act.title} className={styles.actScrollImg} />
-                <div className={styles.actScrollOverlay} />
-                <div className={styles.actScrollContent}>
-                  <span className={styles.actScrollNum}>{act.num}</span>
-                  <h3 className={styles.actScrollTitle}>{act.title}</h3>
-                  <p className={styles.actScrollDesc}>{act.desc}</p>
-                </div>
-              </div>
-            ))}
+          {/* Pagination Controls */}
+          <div className={styles.opsPagination}>
+            <div className={styles.opsDots}>
+              {Array.from({ length: totalOpsPages }).map((_, i) => (
+                <button
+                  key={i}
+                  className={`${styles.opsDot} ${i === opsPage ? styles.opsDotActive : ""}`}
+                  onClick={() => setOpsPage(i)}
+                  aria-label={`Go to operations page ${i + 1}`}
+                />
+              ))}
+            </div>
+            <div className={styles.opsArrows}>
+              <button
+                className={`${styles.opsArrow} ${opsPage === 0 ? styles.opsArrowDisabled : ""}`}
+                onClick={prevOps}
+                aria-label="Previous operations"
+              >
+                ←
+              </button>
+              <button
+                className={`${styles.opsArrow} ${opsPage >= totalOpsPages - 1 ? styles.opsArrowDisabled : ""}`}
+                onClick={nextOps}
+                aria-label="Next operations"
+              >
+                →
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="container">
           <AnimateOnScroll>
-            <div style={{ textAlign: "center", marginTop: "3rem" }}>
+            <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
               <Link href="/activities" className="btn btn--outline">
                 Explore All Activities →
               </Link>
@@ -299,16 +358,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== STATS — REFINED COUNTERS ===== */}
+      {/* ===== STATS — CLEAN RESULTS BAND ===== */}
       <section className={styles.statsBand}>
-        <div className={styles.statsGrain} />
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+        <div className="container">
+          <div className={styles.statsHeader}>
+            <div>
+              <AnimateOnScroll>
+                <h2 className={styles.statsHeading}>Our numbers speak for themselves.</h2>
+                <p className={styles.statsSubtext}>
+                  Three decades of integrated poultry operations across coastal Karnataka & Kerala.
+                </p>
+              </AnimateOnScroll>
+            </div>
+            <AnimateOnScroll delay={1}>
+              <Link href="/about" className="btn btn--primary">
+                Learn More →
+              </Link>
+            </AnimateOnScroll>
+          </div>
+          <div className={styles.statsDivider} />
           <div className={styles.statsGrid}>
             {stats.map((s, i) => (
               <AnimateOnScroll key={s.label} delay={i + 1}>
                 <div className={styles.statCard}>
                   <span className={styles.statNumber}>{s.number}</span>
                   <span className={styles.statLabel}>{s.label}</span>
+                  <p className={styles.statDesc}>{s.desc}</p>
                 </div>
               </AnimateOnScroll>
             ))}
@@ -325,43 +400,46 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* ===== PRODUCTS SECTION (NO ICONS — CLEAN LIST) ===== */}
-      <section className={`section ${styles.productsSection}`}>
+      {/* ===== PRODUCTS SECTION ===== */}
+      <section className={styles.productsSection}>
         <div className="container">
-          <div className={styles.productsLayout}>
-            <AnimateOnScroll>
-              <div className={styles.productsText}>
-                <span className="overline">Our Products</span>
-                <h2 className="heading-2" style={{ marginBottom: "1.5rem" }}>
-                  Premium Poultry<br />Products
-                </h2>
-                <div className="accent-bar" />
-                <p className="text-muted" style={{ marginTop: "1.5rem", marginBottom: "2.5rem" }}>
-                  From hatching eggs and day-old chicks to Hi-Density feeds and
-                  fresh chilled Halal chicken — we deliver excellence across the
-                  entire poultry value chain.
-                </p>
-                <Link href="/products" className="btn btn--primary">
-                  View All Products →
-                </Link>
-              </div>
-            </AnimateOnScroll>
-
-            <div className={styles.productsGrid}>
-              {products.map((p, i) => (
-                <AnimateOnScroll key={p.name} delay={(i % 4) + 1}>
-                  <div className={styles.productChip}>
-                    <div className={styles.productIndex}>{String(i + 1).padStart(2, "0")}</div>
-                    <div className={styles.productInfo}>
-                      <span className={styles.productName}>{p.name}</span>
-                      <span className={styles.productDetail}>{p.detail}</span>
-                    </div>
-                    <span className={styles.productArrow}>→</span>
-                  </div>
-                </AnimateOnScroll>
-              ))}
+          <AnimateOnScroll>
+            <div className={styles.productsHeader}>
+              <span className="overline" style={{ justifyContent: "center" }}>Our Products</span>
+              <h2 className="heading-2">Premium Poultry Products</h2>
+              <p className="text-muted" style={{ marginTop: "1rem", maxWidth: "600px", marginLeft: "auto", marginRight: "auto" }}>
+                From hatching eggs and day-old chicks to Hi-Density feeds and
+                fresh chilled Halal chicken — we deliver excellence across the
+                entire poultry value chain.
+              </p>
             </div>
+          </AnimateOnScroll>
+
+          <div className={styles.productsGrid}>
+            {products.map((p, i) => (
+              <AnimateOnScroll key={p.name} delay={(i % 4) + 1}>
+                <Link href="/products" className={styles.productCard}>
+                  <div className={styles.productCardImgWrap}>
+                    <img src={p.img} alt={p.name} className={styles.productCardImg} />
+                  </div>
+                  <div className={styles.productCardBody}>
+                    <span className={styles.productCardNum}>{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className={styles.productCardName}>{p.name}</h3>
+                    <p className={styles.productCardDetail}>{p.detail}</p>
+                  </div>
+                  <span className={styles.productCardArrow}>→</span>
+                </Link>
+              </AnimateOnScroll>
+            ))}
           </div>
+
+          <AnimateOnScroll>
+            <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+              <Link href="/products" className="btn btn--outline">
+                View All Products →
+              </Link>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 

@@ -42,10 +42,6 @@ export default function Navbar() {
                         alt="Bharath Agrovet Logo"
                         className={styles.logoImage}
                     />
-                    <span className={styles.logoText}>
-                        Bharath Agrovet
-                        <span className={styles.logoSub}>Industries</span>
-                    </span>
                 </Link>
 
                 <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
