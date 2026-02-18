@@ -78,16 +78,16 @@ const activities = [
 
 /* ── Stats with descriptions ── */
 const stats = [
-  { number: "5M+", label: "Hatching Eggs", desc: "Annually from our breeding farm at Hassan District with strict bio-security." },
-  { number: "14M+", label: "Chicks Per Year", desc: "From 2 own hatcheries at Mangalore and Kundapura, round the clock." },
+  { number: "50 Lakh+", label: "Hatching Eggs", desc: "Annually from our breeding farm at Hassan District with strict bio-security." },
+  { number: "1.4 Crore+", label: "Chicks Per Year", desc: "From 2 own hatcheries at Mangalore and Kundapura, round the clock." },
   { number: "400+", label: "Partner Farmers", desc: "Producing healthy broilers, creating rural employment across the region." },
-  { number: "6K+", label: "Tons Feed Monthly", desc: "State-of-the-art crumbs & pellet mill at Thumbe with top-grade materials." },
+  { number: "6,000+", label: "Tons Feed Monthly", desc: "State-of-the-art crumbs & pellet mill at Thumbe with top-grade materials." },
 ];
 
 /* ── Products ── */
 const products = [
   { name: "Broiler Hatching Eggs", detail: "Premium fertile eggs from our own breeding farm with strict bio-security", img: "/images/products/Broiler Hatching Eggs.jpg" },
-  { name: "Day Old Chicks", detail: "14M+ DOC annually from 2 hatcheries at Mangalore and Kundapura", img: "/images/products/Day Old Chicks.jpg" },
+  { name: "Day Old Chicks", detail: "1.4 Crore+ DOC annually from 2 hatcheries at Mangalore and Kundapura", img: "/images/products/Day Old Chicks.jpg" },
   { name: "Hi-Density Poultry Feeds", detail: "Computerized formulation using the best raw materials available", img: "/images/products/Hi-Density Poultry Feeds.jpg" },
   { name: "Broiler Feed Pre-Mixes", detail: "Optimized growth rates with superior feed conversion ratios", img: "/images/products/Broiler Feed Pre-Mixes.jpeg" },
   { name: "Breeder Feed Pre-Mixes", detail: "Balanced nutrients specifically designed for breeder flocks", img: "/images/products/Breeder Feed Pre-Mixes.jpg" },

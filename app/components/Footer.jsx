@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
-const BASE = "https://www.bharathagrovet.com";
+const CURRENT_YEAR = 2026;
 
 export default function Footer() {
     return (
@@ -68,14 +68,14 @@ export default function Footer() {
 
                 <div className={styles.bottomBar}>
                     <img
-                        src={`${BASE}/images/logo.jpg`}
+                        src="https://www.bharathagrovet.com/images/logo.jpg"
                         alt="Bharath Agrovet Logo"
                         className={styles.bottomLogo}
                     />
 
                     <div className={styles.bottomRight}>
                         <p className={styles.copyright}>
-                            © {new Date().getFullYear()} Bharath Agrovet Industries Pvt. Ltd.
+                            © {CURRENT_YEAR} Bharath Agrovet Industries Pvt. Ltd.
                         </p>
                         <span className={styles.bottomDot}>·</span>
                         <span className={styles.legalLink}>All rights reserved</span>

@@ -1,6 +1,14 @@
-/* Activities Page — Premium Polish */
+/* Activities Page — Unique Design */
 
-/* Operation Blocks */
+/* ===== Split Intro ===== */
+.introGrid {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(3rem, 4vw, 8rem);
+    align-items: start;
+}
+
+/* ===== Operation Blocks ===== */
 .opBlock {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -31,7 +39,7 @@
 
 .opImageWrap img {
     width: 100%;
-    height: 340px;
+    height: 380px;
     object-fit: cover;
     transition: transform var(--duration-slower) var(--ease-out);
 }
@@ -59,7 +67,6 @@
     color: var(--color-gold);
 }
 
-/* Small gold tag above title */
 .opTag {
     font-family: var(--font-heading);
     font-size: var(--text-xs);
@@ -70,7 +77,26 @@
     margin-bottom: 0.5rem;
 }
 
-/* Bottom CTA */
+.opContent {
+    position: relative;
+}
+
+.opContent::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: background var(--duration-normal) var(--ease-out);
+}
+
+.opBlock:hover .opContent::before {
+    background: linear-gradient(to bottom, var(--color-gold), transparent);
+}
+
+/* ===== Bottom CTA ===== */
 .ctaSection {
     background: linear-gradient(135deg, #1b3c2d 0%, #0f2219 100%);
     padding: clamp(4rem, 6vw, 7rem) 0;
@@ -86,7 +112,13 @@
     pointer-events: none;
 }
 
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
+    .introGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
     .opBlock {
         grid-template-columns: 1fr;
         gap: var(--space-md);
@@ -98,5 +130,9 @@
 
     .opImageWrap img {
         height: 250px;
+    }
+
+    .opContent::before {
+        display: none;
     }
 }

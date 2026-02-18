@@ -4,20 +4,26 @@ import styles from "./about.module.css";
 
 export const metadata = {
     title: "About Us — Bharath Agrovet Industries",
-    description: "Leading poultry producing company in Mangaluru with over 3 decades of experience. Committed to quality and service.",
+    description: "Leading poultry producing company in Mangaluru with over 3 decades of experience.",
 };
 
 const BASE = "https://www.bharathagrovet.com";
 
-const activities = [
-    "Breeding Farms",
-    "Hatcheries",
-    "Feed Mills",
-    "Integration Farms",
-    "Dressing Unit",
-    "Retail Outlets",
-    "Consultancy",
-    "Exports",
+const stats = [
+    { number: "50 Lakh+", label: "Hatching Eggs", desc: "Annually from our breeding farm at Hassan District." },
+    { number: "1.4 Crore+", label: "Chicks Per Year", desc: "From 2 own hatcheries, round the clock." },
+    { number: "400+", label: "Partner Farmers", desc: "Creating rural employment across the region." },
+    { number: "6,000+", label: "Tons Feed Monthly", desc: "State-of-the-art crumbs & pellet mill at Thumbe." },
+];
+
+const timeline = [
+    { year: "1990s", title: "The Foundation", desc: "Our founders began their careers in the poultry industry, accumulating over 3 decades of technical and marketing expertise across coastal Karnataka." },
+    { year: "2005", title: "Bharath Agrovet is Born", desc: "Established in Mangaluru by marketing and veterinary professionals with a vision to promote superior poultry products and services." },
+    { year: "2008", title: "Hatchery Expansion", desc: "Expanded to 2 hatcheries at Mangalore and Kundapura with 14 million chick capacity, functioning round the clock." },
+    { year: "2012", title: "Feed Mill Launch", desc: "Commissioned state-of-the-art crumbs & pellet mill at Thumbe with 6,000+ tons monthly production capacity." },
+    { year: "2016", title: "Processing & Retail", desc: "Launched conveyorised dressing unit at Ganjimutt and opened retail outlets — Chilly Chicken and Meat Junction." },
+    { year: "2020", title: "Indous Bio", desc: "Launched Indous Bio — a sister concern producing premium virgin coconut oil from coastal Karnataka coconuts." },
+    { year: "Today", title: "Integrated Value Chain", desc: "A fully integrated poultry operation — breeding, hatching, feed, farming, processing, and retail — serving coastal Karnataka and Kerala." },
 ];
 
 const policyItems = [
@@ -75,21 +81,32 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Activities Strip */}
-            <section className={styles.activitiesStrip}>
+            {/* Stats Band */}
+            <section className={styles.statsBand}>
                 <div className="container">
-                    <AnimateOnScroll>
-                        <div className={styles.sectionHeader}>
-                            <span className="overline">Our Activities</span>
-                            <h2 className="heading-3 text-white">Integrated Operations</h2>
+                    <div className={styles.statsHeader}>
+                        <div>
+                            <AnimateOnScroll>
+                                <h2 className={styles.statsHeading}>Our numbers speak for themselves.</h2>
+                                <p className={styles.statsSubtext}>
+                                    Three decades of integrated poultry operations across coastal Karnataka &amp; Kerala.
+                                </p>
+                            </AnimateOnScroll>
                         </div>
-                    </AnimateOnScroll>
-                    <div className={styles.activitiesRow}>
-                        {activities.map((label, i) => (
-                            <AnimateOnScroll key={label} delay={i + 1}>
-                                <div className={styles.activityPill}>
-                                    <span className={styles.activityDot} />
-                                    <span>{label}</span>
+                        <AnimateOnScroll delay={1}>
+                            <a href="/activities" className="btn btn--primary">
+                                Explore Activities →
+                            </a>
+                        </AnimateOnScroll>
+                    </div>
+                    <div className={styles.statsDivider} />
+                    <div className={styles.statsGrid}>
+                        {stats.map((s, i) => (
+                            <AnimateOnScroll key={s.label} delay={i + 1}>
+                                <div className={styles.statCard}>
+                                    <span className={styles.statNumber}>{s.number}</span>
+                                    <span className={styles.statLabel}>{s.label}</span>
+                                    <p className={styles.statDesc}>{s.desc}</p>
                                 </div>
                             </AnimateOnScroll>
                         ))}
@@ -97,38 +114,57 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Full Bleed */}
-            <div className={styles.fullBleed}>
-                <img src={`${BASE}/images/banner_images/9.jpg`} alt="Bharath Agrovet" />
-            </div>
+            {/* Timeline Journey — Unique to About Page */}
+            <section className="section section--cream">
+                <div className="container container--narrow">
+                    <AnimateOnScroll>
+                        <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+                            <span className="overline" style={{ justifyContent: "center" }}>Our Journey</span>
+                            <h2 className="heading-2">The Bharath Agrovet Story</h2>
+                            <div className="accent-bar accent-bar--center" />
+                        </div>
+                    </AnimateOnScroll>
+
+                    <div className={styles.timeline}>
+                        {timeline.map((item, i) => (
+                            <AnimateOnScroll key={i} delay={i % 3}>
+                                <div className={styles.timelineItem}>
+                                    <div className={styles.timelineDot} />
+                                    <span className={styles.timelineYear}>{item.year}</span>
+                                    <h3 className={styles.timelineTitle}>{item.title}</h3>
+                                    <p className={styles.timelineDesc}>{item.desc}</p>
+                                </div>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* Quality Policy */}
             <section className="section">
                 <div className="container container--narrow">
                     <AnimateOnScroll>
-                        <div className={styles.policyBlock}>
+                        <div className={styles.policySection}>
                             <span className="overline" style={{ justifyContent: "center" }}>Quality Policy</span>
-                            <h2 className="heading-3" style={{ marginBottom: "1.5rem", textAlign: "center" }}>
+                            <h2 className="heading-2" style={{ marginBottom: "0.75rem" }}>
                                 An Edge in Quality &amp; Services
                             </h2>
                             <div className="accent-bar accent-bar--center" />
-                            <p className="text-large text-muted" style={{ marginTop: "1.5rem", textAlign: "center" }}>
-                                In fulfilling our mission of having an edge in quality and services
-                                in the poultry industry, we strive to exceed customers&apos;
-                                expectations and excel in continual inclusive growth.
+                            <p className="text-large text-muted" style={{ marginTop: "1.5rem", maxWidth: "650px", marginInline: "auto" }}>
+                                In fulfilling our mission of having an edge in quality and services,
+                                we strive to exceed customers&apos; expectations and excel in continual inclusive growth.
                             </p>
-                            <div className={styles.policyGrid}>
-                                {policyItems.map((item, i) => (
-                                    <AnimateOnScroll key={i} delay={i + 1}>
-                                        <div className={styles.policyCard}>
-                                            <span className={styles.policyNum}>{String(i + 1).padStart(2, "0")}</span>
-                                            <p>{item}</p>
-                                        </div>
-                                    </AnimateOnScroll>
-                                ))}
-                            </div>
                         </div>
                     </AnimateOnScroll>
+                    <div className={styles.policyGrid}>
+                        {policyItems.map((item, i) => (
+                            <AnimateOnScroll key={i} delay={i + 1}>
+                                <div className={styles.policyCard}>
+                                    <p>{item}</p>
+                                </div>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
                 </div>
             </section>
 
@@ -136,13 +172,17 @@ export default function AboutPage() {
             <section className={styles.vmSection}>
                 <div className={styles.vmGrain} />
                 <div className="container" style={{ position: "relative", zIndex: 2 }}>
+                    <AnimateOnScroll>
+                        <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+                            <span className="overline" style={{ justifyContent: "center" }}>Our Direction</span>
+                            <h2 className="heading-2 text-white">Vision &amp; Mission</h2>
+                            <div className="accent-bar accent-bar--center" />
+                        </div>
+                    </AnimateOnScroll>
                     <div className={styles.vmGrid}>
                         <AnimateOnScroll>
                             <div className={styles.vmCard}>
-                                <span className={styles.vmLabel}>01</span>
-                                <h3 className="heading-3 text-white" style={{ marginBottom: "1.25rem" }}>
-                                    Vision Statement
-                                </h3>
+                                <span className={styles.vmLabel}>Vision</span>
                                 <p className={styles.vmText}>
                                     We aspire to be the foremost poultry producer celebrated for our
                                     commitment to delivering wholesome and affordable protein options
@@ -153,15 +193,12 @@ export default function AboutPage() {
                         </AnimateOnScroll>
                         <AnimateOnScroll delay={2}>
                             <div className={styles.vmCard}>
-                                <span className={styles.vmLabel}>02</span>
-                                <h3 className="heading-3 text-white" style={{ marginBottom: "1.25rem" }}>
-                                    Mission
-                                </h3>
+                                <span className={styles.vmLabel}>Mission</span>
                                 <ul className={styles.missionList}>
                                     <li>Minimal usage of natural resources and conserving the same</li>
-                                    <li>Continuously improve our operations and enhance customer experience</li>
+                                    <li>Continuously improve operations and enhance customer experience</li>
                                     <li>Ensure equitable growth and welfare of all employees and stakeholders</li>
-                                    <li>Continuously invest in innovation and advancement for the best output</li>
+                                    <li>Invest in innovation and advancement for the best output</li>
                                     <li>Explore all opportunities for sustainable growth</li>
                                 </ul>
                             </div>

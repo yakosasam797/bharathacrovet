@@ -2,101 +2,94 @@
 
 import HeroBanner from "../components/HeroBanner";
 import AnimateOnScroll from "../components/AnimateOnScroll";
+import Link from "next/link";
 import styles from "./gallery.module.css";
 import { useState, useEffect, useCallback } from "react";
 
 const BASE = "https://www.bharathagrovet.com";
 
+/* Use a mix of local + remote images that are confirmed to work */
 const photos = [
-    { src: `${BASE}/gallery_images/1880378147A1-900_600.jpg`, caption: "Retail Operations" },
-    { src: `${BASE}/gallery_images/2089296197A2.jpg`, caption: "Facilities" },
-    { src: `${BASE}/gallery_images/303128077A3.jpg`, caption: "Farm Operations" },
-    { src: `${BASE}/gallery_images/951331741A4.jpg`, caption: "Processing" },
-    { src: `${BASE}/gallery_images/897791671A5.jpg`, caption: "Feed Mill" },
-    { src: `${BASE}/gallery_images/334731531A6.jpg`, caption: "Warehouse" },
-    { src: `${BASE}/gallery_images/1511082473B1.jpg`, caption: "Hatchery" },
-    { src: `${BASE}/gallery_images/1349695739B2.jpg`, caption: "Breeding Farm" },
-    { src: `${BASE}/gallery_images/1968667099B3.jpg`, caption: "Quality Check" },
-    { src: `${BASE}/gallery_images/32846927C1.jpg`, caption: "Team" },
-    { src: `${BASE}/gallery_images/1575488262C2.jpg`, caption: "Distribution" },
-    { src: `${BASE}/gallery_images/1916205811C3.jpg`, caption: "Production" },
-    { src: `${BASE}/gallery_images/1405271782C4.jpg`, caption: "Equipment" },
-    { src: `${BASE}/gallery_images/706622507C5.jpg`, caption: "Operations" },
-    { src: `${BASE}/gallery_images/1424135281C6-thumb.jpg`, caption: "Infrastructure" },
-    { src: `${BASE}/gallery_images/540040909C8.jpg`, caption: "Chick Dispatch" },
-    { src: `${BASE}/gallery_images/1387097399E1.jpg`, caption: "Feed Storage" },
-    { src: `${BASE}/gallery_images/1491351305E2.jpg`, caption: "Mixing" },
-    { src: `${BASE}/gallery_images/1883121380E3.jpg`, caption: "Lab Testing" },
-    { src: `${BASE}/gallery_images/1255068705E4.jpg`, caption: "Bio Security" },
-    { src: `${BASE}/gallery_images/327759684E5.jpg`, caption: "Staff Training" },
-    { src: `${BASE}/gallery_images/57225263E6.jpg`, caption: "Certification" },
-    { src: `${BASE}/gallery_images/1362791697F1.jpg`, caption: "Vehicle Fleet" },
-    { src: `${BASE}/gallery_images/1709344776F2.jpg`, caption: "Cold Storage" },
-    { src: `${BASE}/gallery_images/2099359264F3-thumb.jpg`, caption: "Packaging" },
-    { src: `${BASE}/gallery_images/482548011G1.jpg`, caption: "Brand" },
-    { src: `${BASE}/gallery_images/2113798669G2.jpg`, caption: "Corporate" },
+    { src: "/images/operations/Breeders.jpg", caption: "Breeding Farm", category: "Breeders" },
+    { src: "/images/operations/Hatcheries.webp", caption: "Hatchery Unit", category: "Hatcheries" },
+    { src: "/images/operations/Feed Mills.jpg", caption: "Feed Mill", category: "Feed" },
+    { src: "/images/operations/Processing.jpg", caption: "Processing Plant", category: "Processing" },
+    { src: "/images/operations/Farming.jpg", caption: "Broiler Farming", category: "Farming" },
+    { src: "/images/operations/Retailing.jpg", caption: "Retail Outlet", category: "Retailing" },
+    { src: "/images/products/Broiler Hatching Eggs.jpg", caption: "Hatching Eggs", category: "Products" },
+    { src: "/images/products/Day Old Chicks.jpg", caption: "Day-Old Chicks", category: "Products" },
+    { src: "/images/products/Hi-Density Poultry Feeds.jpg", caption: "Poultry Feeds", category: "Products" },
+    { src: "/images/products/Fresh Chilled Chicken.jpg", caption: "Fresh Chicken", category: "Products" },
+    { src: "/images/products/Live Chicken.jpg", caption: "Live Broilers", category: "Products" },
+    { src: "/images/products/Parent Culls.jpg", caption: "Parent Stock", category: "Breeding" },
 ];
 
 export default function GalleryPage() {
     const [lightbox, setLightbox] = useState(null);
 
-    const goNext = useCallback(() => {
-        setLightbox((prev) => (prev + 1) % photos.length);
-    }, []);
+    const close = useCallback(() => setLightbox(null), []);
+    const prev = useCallback(
+        () => setLightbox((i) => (i > 0 ? i - 1 : photos.length - 1)),
+        []
+    );
+    const next = useCallback(
+        () => setLightbox((i) => (i < photos.length - 1 ? i + 1 : 0)),
+        []
+    );
 
-    const goPrev = useCallback(() => {
-        setLightbox((prev) => (prev - 1 + photos.length) % photos.length);
-    }, []);
-
-    /* Keyboard support: Escape, ←, → */
     useEffect(() => {
         if (lightbox === null) return;
-        const handleKey = (e) => {
-            if (e.key === "Escape") setLightbox(null);
-            if (e.key === "ArrowRight") goNext();
-            if (e.key === "ArrowLeft") goPrev();
+        const handler = (e) => {
+            if (e.key === "Escape") close();
+            if (e.key === "ArrowLeft") prev();
+            if (e.key === "ArrowRight") next();
         };
-        window.addEventListener("keydown", handleKey);
-        return () => window.removeEventListener("keydown", handleKey);
-    }, [lightbox, goNext, goPrev]);
+        window.addEventListener("keydown", handler);
+        document.body.style.overflow = "hidden";
+        return () => {
+            window.removeEventListener("keydown", handler);
+            document.body.style.overflow = "";
+        };
+    }, [lightbox, close, prev, next]);
 
     return (
         <>
             <HeroBanner
-                imageSrc={`${BASE}/images/banner_images/16.jpg`}
-                title="Gallery"
-                subtitle="Our World in Pictures"
+                imageSrc={`${BASE}/images/banner_images/20.jpg`}
+                title="Photo Gallery"
+                subtitle="Gallery"
                 compact
             />
 
-            <section className="section section--cream">
+            {/* Compact intro + grid in one section */}
+            <section className="section" style={{ paddingTop: "clamp(2.5rem, 3vw, 4rem)" }}>
                 <div className="container">
                     <AnimateOnScroll>
-                        <div className={styles.intro}>
-                            <span className="overline" style={{ justifyContent: "center" }}>Visual Journey</span>
-                            <h2 className="heading-3">A Glimpse Into Our Operations</h2>
-                            <div className="accent-bar accent-bar--center" style={{ marginTop: "1rem" }} />
-                            <p className="text-muted" style={{ marginTop: "1rem", maxWidth: "600px", margin: "1rem auto 0" }}>
-                                From our breeding farms and hatcheries to our feed mills, processing
-                                units, and retail outlets — see the world of Bharath Agrovet Industries.
+                        <div className={styles.introCompact}>
+                            <div>
+                                <span className="overline">Visual Journey</span>
+                                <h2 className="heading-3">Our Operations In Action</h2>
+                            </div>
+                            <p className="text-muted" style={{ maxWidth: "420px" }}>
+                                From breeding farms and hatcheries to feed mills and retail outlets.
                             </p>
                         </div>
                     </AnimateOnScroll>
 
+                    {/* Masonry Grid */}
                     <div className={styles.masonryGrid}>
-                        {photos.map((photo, i) => (
-                            <AnimateOnScroll key={i} delay={(i % 6) + 1}>
+                        {photos.map((p, i) => (
+                            <AnimateOnScroll key={i} delay={(i % 3) + 1}>
                                 <div
                                     className={styles.galleryItem}
                                     onClick={() => setLightbox(i)}
-                                    role="button"
-                                    tabIndex={0}
-                                    onKeyDown={(e) => e.key === "Enter" && setLightbox(i)}
                                 >
-                                    <img src={photo.src} alt={photo.caption} loading="lazy" />
+                                    <img src={p.src} alt={p.caption} loading="lazy" />
                                     <div className={styles.galleryOverlay}>
-                                        <span className={styles.galleryCaption}>{photo.caption}</span>
-                                        <span className={styles.galleryZoom}>⟶</span>
+                                        <div>
+                                            <span className={styles.galleryTag}>{p.category}</span>
+                                            <span className={styles.galleryCaption}>{p.caption}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </AnimateOnScroll>
@@ -105,29 +98,49 @@ export default function GalleryPage() {
                 </div>
             </section>
 
+            {/* Bottom CTA */}
+            <section className={styles.ctaSection}>
+                <div className={styles.ctaGrain} />
+                <div className="container" style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
+                    <AnimateOnScroll>
+                        <span className="overline" style={{ justifyContent: "center" }}>Want to Know More?</span>
+                        <h2 className="heading-3 text-white" style={{ marginBottom: "1rem" }}>
+                            Explore Our Activities
+                        </h2>
+                        <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 550, margin: "0 auto 2rem", lineHeight: 1.8 }}>
+                            Discover the 7 pillars of our integrated poultry value chain — from breeding to retail.
+                        </p>
+                        <Link href="/activities" className="btn btn--gold">
+                            View Activities →
+                        </Link>
+                    </AnimateOnScroll>
+                </div>
+            </section>
+
             {/* Lightbox */}
             {lightbox !== null && (
-                <div className={styles.lightbox} onClick={() => setLightbox(null)}>
-                    <button className={styles.lightboxClose} onClick={() => setLightbox(null)}>
-                        ×
+                <div className={styles.lightbox} onClick={close}>
+                    <button className={styles.lightboxClose} onClick={close}>
+                        ✕
+                    </button>
+                    <button
+                        className={`${styles.lightboxNav} ${styles.lightboxPrev}`}
+                        onClick={(e) => { e.stopPropagation(); prev(); }}
+                    >
+                        ←
                     </button>
                     <img
                         src={photos[lightbox].src}
                         alt={photos[lightbox].caption}
-                        className={styles.lightboxImage}
+                        className={styles.lightboxImg}
+                        onClick={(e) => e.stopPropagation()}
                     />
-                    <p className={styles.lightboxCaption}>{photos[lightbox].caption}</p>
-                    <div className={styles.lightboxNav} onClick={(e) => e.stopPropagation()}>
-                        <button className={styles.lightboxArrow} onClick={goPrev}>
-                            ←
-                        </button>
-                        <span className={styles.lightboxCount}>
-                            {lightbox + 1} / {photos.length}
-                        </span>
-                        <button className={styles.lightboxArrow} onClick={goNext}>
-                            →
-                        </button>
-                    </div>
+                    <button
+                        className={`${styles.lightboxNav} ${styles.lightboxNext}`}
+                        onClick={(e) => { e.stopPropagation(); next(); }}
+                    >
+                        →
+                    </button>
                 </div>
             )}
         </>

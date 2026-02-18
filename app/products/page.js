@@ -1,53 +1,62 @@
 import HeroBanner from "../components/HeroBanner";
 import AnimateOnScroll from "../components/AnimateOnScroll";
+import Link from "next/link";
 import styles from "./products.module.css";
 
 export const metadata = {
     title: "Products — Bharath Agrovet Industries",
-    description: "Broiler hatching eggs, day old chicks, hi-density poultry feeds, dressed chicken, and more from Bharath Agrovet.",
+    description: "Premium poultry products — hatching eggs, day-old chicks, broiler feeds, live birds, and dressed chicken.",
 };
 
 const BASE = "https://www.bharathagrovet.com";
 
 const products = [
     {
-        name: "Broiler Hatching Eggs",
-        desc: "Premium fertile eggs from our own breeding farm at Hassan district, backed by strict bio-security and health practices.",
+        title: "Broiler Hatching Eggs",
+        tag: "Breeding",
+        desc: "5 million hatching eggs per annum from our Hassan District breeding farm, produced under strict bio-security conditions.",
         img: "/images/products/Broiler Hatching Eggs.jpg",
     },
     {
-        name: "Day Old Chicks",
-        desc: "14 million+ DOC per annum from 2 hatcheries at Mangalore and Kundapura, with average hatchability of 82%–85%.",
+        title: "Day Old Chicks",
+        tag: "Hatchery",
+        desc: "14 million quality chicks per year — commercial broiler and colour chicks from two state-of-the-art hatcheries.",
         img: "/images/products/Day Old Chicks.jpg",
     },
     {
-        name: "Hi-Density Poultry Feeds",
-        desc: "State-of-the-art crumbs & pellet feed from our own mill at Thumbe, using computerized formulations and premium raw materials.",
+        title: "Hi-Density Poultry Feeds",
+        tag: "Feed Mill",
+        desc: "Pre-starter, starter, finisher, and breeder feeds — 6,000+ tons per month from computerised formulations.",
         img: "/images/products/Hi-Density Poultry Feeds.jpg",
     },
     {
-        name: "Broiler Feed Pre-Mixes",
-        desc: "Specially formulated pre-mixes ensuring optimal growth rates and feed conversion ratios for broiler production.",
+        title: "Broiler Feed Pre-Mixes",
+        tag: "Feed Mill",
+        desc: "Scientifically formulated pre-mix concentrates for optimum broiler growth and feed conversion efficiency.",
         img: "/images/products/Broiler Feed Pre-Mixes.jpeg",
     },
     {
-        name: "Breeder Feed Pre-Mixes",
-        desc: "Balanced nutrient pre-mixes designed for breeder flocks to maximize fertility and egg production.",
-        img: "/images/products/Breeder Feed Pre-Mixes.jpg",
-    },
-    {
-        name: "Live Chicken",
-        desc: "Healthy broilers grown by 400+ contract farmers under strict quality monitoring and veterinary supervision.",
+        title: "Live Chicken",
+        tag: "Farming",
+        desc: "Healthy live broilers produced by 400+ contract farmers across coastal Karnataka, at competitive market rates.",
         img: "/images/products/Live Chicken.jpg",
     },
     {
-        name: "Fresh Chilled Chicken",
-        desc: "Halal-certified chilled chicken from our conveyorised dressing unit at Ganjimutt, distributed across Mangalore.",
+        title: "Fresh Chilled Chicken",
+        tag: "Processing",
+        desc: "Halal certified hygienic chilled chicken — processed in conveyorised dressing plant at 1,000 birds/hour.",
         img: "/images/products/Fresh Chilled Chicken.jpg",
     },
     {
-        name: "Parent Culls",
-        desc: "Quality parent culls available through our integrated poultry operations and retail outlets.",
+        title: "Breeder Feed Pre-Mixes",
+        tag: "Feed Mill",
+        desc: "Specialised pre-mix formulations designed for breeder flocks to maximise hatching egg quality and fertility.",
+        img: "/images/products/Breeder Feed Pre-Mixes.jpg",
+    },
+    {
+        title: "Parent Culls",
+        tag: "Breeding",
+        desc: "Retired parent stock — available for wholesale purchase at competitive pricing.",
         img: "/images/products/Parent Culls.jpg",
     },
 ];
@@ -58,69 +67,91 @@ export default function ProductsPage() {
             <HeroBanner
                 imageSrc={`${BASE}/images/banner_images/15.jpg`}
                 title="Our Products"
-                subtitle="Quality Poultry Products"
+                subtitle="Product Range"
                 compact
             />
 
-            {/* Intro */}
-            <section className={`section ${styles.productsIntro}`}>
+            {/* Split Intro */}
+            <section className="section">
                 <div className="container">
                     <div className={styles.introGrid}>
                         <AnimateOnScroll>
                             <div>
                                 <span className="overline">Product Range</span>
-                                <h2 className="heading-2" style={{ marginBottom: "1rem" }}>
-                                    Farm to Fork Excellence
+                                <h2 className="heading-2">
+                                    From Farm to Fork
                                 </h2>
                                 <div className="accent-bar" />
-                                <p className="text-muted text-large" style={{ marginTop: "1.5rem" }}>
-                                    From hatching eggs and day-old chicks to premium poultry feeds
-                                    and fresh chilled Halal chicken — we deliver quality across
-                                    the entire value chain.
-                                </p>
                             </div>
                         </AnimateOnScroll>
                         <AnimateOnScroll delay={2}>
-                            <div className={styles.productFeatImage}>
-                                <img
-                                    src={`${BASE}/resources/uploaded/Product_activities.jpg`}
-                                    alt="Products overview"
-                                />
+                            <div>
+                                <p className="text-large" style={{ color: "var(--color-gray)", marginBottom: "1.5rem" }}>
+                                    Our vertically integrated poultry value chain delivers premium
+                                    products at every stage — hatching eggs, chicks, feeds, live
+                                    birds, and dressed chicken.
+                                </p>
+                                <Link href="/contact" className="btn btn--primary">
+                                    Enquire Now →
+                                </Link>
                             </div>
                         </AnimateOnScroll>
                     </div>
                 </div>
             </section>
 
-            {/* Product Cards */}
-            <section className="section section--cream">
+            {/* Products Grid */}
+            <section className="section section--cream" style={{ paddingTop: 0 }}>
                 <div className="container">
-                    <AnimateOnScroll>
-                        <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
-                            <span className="overline" style={{ justifyContent: "center" }}>Our Range</span>
-                            <h2 className="heading-3" style={{ marginBottom: "0.75rem" }}>8 Quality Products</h2>
-                            <div className="accent-bar accent-bar--center" />
-                        </div>
-                    </AnimateOnScroll>
                     <div className={styles.productsGrid}>
                         {products.map((p, i) => (
-                            <AnimateOnScroll key={p.name} delay={(i % 4) + 1}>
+                            <AnimateOnScroll key={p.title} delay={(i % 3) + 1}>
                                 <div className={styles.productCard}>
                                     <div className={styles.productImgWrap}>
-                                        <img src={p.img} alt={p.name} className={styles.productImg} />
+                                        <img src={p.img} alt={p.title} />
+                                        <span className={styles.productTag}>{p.tag}</span>
                                     </div>
                                     <div className={styles.productBody}>
-                                        <span className={styles.productNum}>
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
-                                        <h3 className={styles.productName}>{p.name}</h3>
+                                        <h3 className={styles.productTitle}>{p.title}</h3>
                                         <p className={styles.productDesc}>{p.desc}</p>
+                                        <div className={styles.productFooter}>
+                                            <span className={styles.productLink}>
+                                                Learn More
+                                            </span>
+                                            <span className={styles.productArrow}>→</span>
+                                        </div>
                                     </div>
-                                    <div className={styles.productBar} />
                                 </div>
                             </AnimateOnScroll>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* Featured Product Banner */}
+            <section className="section">
+                <div className="container">
+                    <AnimateOnScroll>
+                        <div className={styles.featuredBanner}>
+                            <div className={styles.featuredGrain} />
+                            <div className={styles.featuredContent}>
+                                <span className="overline" style={{ color: "var(--color-gold)" }}>Featured</span>
+                                <h2 className="heading-3 text-white" style={{ marginBottom: "1rem" }}>
+                                    Bharath&apos;s Premium Broiler Feeds
+                                </h2>
+                                <p style={{ color: "rgba(255,255,255,0.75)", lineHeight: 1.85, marginBottom: "2rem", maxWidth: "460px" }}>
+                                    State-of-the-art crumbs &amp; pellet formulations, developed by experienced
+                                    nutritionists for maximum feed conversion and bird health.
+                                </p>
+                                <Link href="/contact" className="btn btn--gold">
+                                    Get Quote →
+                                </Link>
+                            </div>
+                            <div className={styles.featuredImageWrap}>
+                                <img src="/images/operations/Feed Mills.jpg" alt="Feed Mill" />
+                            </div>
+                        </div>
+                    </AnimateOnScroll>
                 </div>
             </section>
 
@@ -129,16 +160,16 @@ export default function ProductsPage() {
                 <div className={styles.ctaGrain} />
                 <div className="container" style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
                     <AnimateOnScroll>
-                        <span className="overline" style={{ justifyContent: "center" }}>Get Started</span>
+                        <span className="overline" style={{ justifyContent: "center" }}>Ready to Order?</span>
                         <h2 className="heading-3 text-white" style={{ marginBottom: "1rem" }}>
-                            Interested in Our Products?
+                            Contact Our Sales Team
                         </h2>
                         <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 550, margin: "0 auto 2rem", lineHeight: 1.8 }}>
-                            Whether you need hatching eggs, day-old chicks, premium feeds, or fresh chilled chicken — get in touch with our team.
+                            Whether you&apos;re looking for bulk orders or retail supplies, our team is ready to assist.
                         </p>
-                        <a href="/contact" className="btn btn--gold">
-                            Contact Us →
-                        </a>
+                        <Link href="/contact" className="btn btn--gold">
+                            Get In Touch →
+                        </Link>
                     </AnimateOnScroll>
                 </div>
             </section>

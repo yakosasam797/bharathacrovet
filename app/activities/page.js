@@ -1,5 +1,6 @@
 import HeroBanner from "../components/HeroBanner";
 import AnimateOnScroll from "../components/AnimateOnScroll";
+import Link from "next/link";
 import styles from "./activities.module.css";
 
 export const metadata = {
@@ -9,7 +10,6 @@ export const metadata = {
 
 const BASE = "https://www.bharathagrovet.com";
 
-/* Use the SAME high-quality images as the homepage */
 const operations = [
     {
         num: "01",
@@ -65,25 +65,40 @@ export default function ActivitiesPage() {
                 compact
             />
 
-            {/* Section Header */}
+            {/* Split Intro */}
             <section className="section">
-                <div className="container" style={{ textAlign: "center" }}>
-                    <AnimateOnScroll>
-                        <span className="overline" style={{ justifyContent: "center" }}>Integrated Value Chain</span>
-                        <h2 className="heading-2" style={{ marginBottom: "0.75rem" }}>
-                            7 Pillars of Excellence
-                        </h2>
-                        <div className="accent-bar accent-bar--center" />
-                        <p className="text-muted" style={{ maxWidth: "580px", margin: "1.5rem auto 0", lineHeight: 1.8 }}>
-                            From breeding and hatching through feed production, farming, processing, and
-                            retail — every step is managed with precision and care.
-                        </p>
-                    </AnimateOnScroll>
+                <div className="container">
+                    <div className={styles.introGrid}>
+                        <AnimateOnScroll>
+                            <div>
+                                <span className="overline">Integrated Value Chain</span>
+                                <h2 className="heading-2">
+                                    7 Pillars of Excellence
+                                </h2>
+                                <div className="accent-bar" />
+                            </div>
+                        </AnimateOnScroll>
+                        <AnimateOnScroll delay={2}>
+                            <div>
+                                <p className="text-large" style={{ color: "var(--color-gray)", marginBottom: "1.5rem" }}>
+                                    From breeding and hatching through feed production, farming, processing, and
+                                    retail — every step is managed with precision and care.
+                                </p>
+                                <p style={{ color: "var(--color-gray)", marginBottom: "2.5rem" }}>
+                                    Our vertically integrated model ensures quality control at every stage,
+                                    from the farm to the consumer&apos;s table.
+                                </p>
+                                <Link href="/products" className="btn btn--primary">
+                                    View Products →
+                                </Link>
+                            </div>
+                        </AnimateOnScroll>
+                    </div>
                 </div>
             </section>
 
             {/* Alternating Operation Blocks */}
-            <section className="section" style={{ paddingTop: 0 }}>
+            <section className="section section--cream" style={{ paddingTop: 0 }}>
                 <div className="container">
                     {operations.map((op, i) => (
                         <AnimateOnScroll key={op.num}>
@@ -120,11 +135,11 @@ export default function ActivitiesPage() {
                             Explore Our Product Range
                         </h2>
                         <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 550, margin: "0 auto 2rem", lineHeight: 1.8 }}>
-                            From hatching eggs and day-old chicks to premium poultry feeds and fresh chilled chicken — discover what we deliver.
+                            From hatching eggs and day-old chicks to premium poultry feeds and fresh chilled chicken.
                         </p>
-                        <a href="/products" className="btn btn--gold">
+                        <Link href="/products" className="btn btn--gold">
                             View Products →
-                        </a>
+                        </Link>
                     </AnimateOnScroll>
                 </div>
             </section>

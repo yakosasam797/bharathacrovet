@@ -1,123 +1,111 @@
 import HeroBanner from "../components/HeroBanner";
 import AnimateOnScroll from "../components/AnimateOnScroll";
+import Link from "next/link";
 import styles from "./indous.module.css";
 
 export const metadata = {
     title: "Indous Bio — Virgin Coconut Oil & Natural Products",
-    description: "Indous Bio is a subsidiary of Bharath Agrovet Industries producing premium virgin coconut oil and coconut-based products.",
+    description: "Indous Bio produces premium virgin coconut oil from the finest coastal Karnataka coconuts.",
 };
 
 const BASE = "https://www.bharathagrovet.com";
 
 const benefits = [
-    { title: "Heart Health", desc: "Rich in medium-chain triglycerides (MCTs) that support cardiovascular health." },
-    { title: "Brain Function", desc: "MCTs provide an immediate and clean energy source for brain cells." },
-    { title: "Immune Boost", desc: "Contains lauric acid, a powerful compound with antimicrobial properties." },
-    { title: "Skin Care", desc: "Natural moisturizer with antibacterial properties for healthy skin." },
-    { title: "Energy", desc: "MCTs are rapidly absorbed and converted to energy — ideal for active lifestyles." },
-    { title: "Oral Health", desc: "Traditional oil-pulling with VCO supports oral hygiene and gum health." },
-    { title: "Anti-Inflammatory", desc: "Rich in antioxidants that help reduce inflammation and oxidative stress." },
-    { title: "Cooking", desc: "High smoke point makes it ideal for sautéing, frying, and baking." },
+    { icon: "🛡", title: "Immunity Boost", desc: "Rich in lauric acid which supports the body's natural immune defense system." },
+    { icon: "♥", title: "Heart Health", desc: "Contains healthy medium-chain fatty acids that support cardiovascular function." },
+    { icon: "✦", title: "Skin & Hair", desc: "Natural moisturizer that nourishes skin and promotes healthy, shiny hair." },
+    { icon: "⚕", title: "Anti-Inflammatory", desc: "Rich in antioxidants that help reduce inflammation and oxidative stress." },
+    { icon: "🍳", title: "Cooking", desc: "High smoke point makes it ideal for sautéing, frying, and baking." },
+    { icon: "⚡", title: "Energy", desc: "MCTs are quickly absorbed and converted to energy — a natural vitality booster." },
 ];
 
-const certs = [
-    {
-        name: "FSSAI",
-        full: "Food Safety & Standards Authority of India",
-        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/20/Food_Safety_and_Standards_Authority_of_India_%28FSSAI%29_logo.png/220px-Food_Safety_and_Standards_Authority_of_India_%28FSSAI%29_logo.png",
-    },
-    {
-        name: "ISO 22000",
-        full: "Food Safety Management System",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/ISO_Logo_%28Red_square%29.svg/200px-ISO_Logo_%28Red_square%29.svg.png",
-    },
-    {
-        name: "HALAL",
-        full: "Halal Certification Authority",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Halal_logo.svg/200px-Halal_logo.svg.png",
-    },
-    {
-        name: "Organic",
-        full: "Certified Organic Product",
-        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/India_Organic_Logo.svg/200px-India_Organic_Logo.svg.png",
-    },
+const certifications = [
+    { icon: "🏅", title: "FSSAI Certified", desc: "Meeting India's highest food safety standards." },
+    { icon: "🌿", title: "100% Natural", desc: "No chemicals, preservatives, or artificial additives." },
+    { icon: "🥥", title: "Cold Pressed", desc: "Extracted at low temperatures to preserve all nutrients." },
 ];
 
 export default function IndousBioPage() {
     return (
         <>
             <HeroBanner
-                imageSrc={`${BASE}/images/banner_images/5.png`}
+                imageSrc={`${BASE}/images/banner_images/2.jpg`}
                 title="Indous Bio"
                 subtitle="Natural Products"
                 compact
             />
 
-            {/* Intro */}
+            {/* Intro Grid */}
             <section className="section">
                 <div className="container">
                     <div className={styles.introGrid}>
                         <AnimateOnScroll>
-                            <div>
-                                <span className="overline">Subsidiary Company</span>
-                                <h2 className="heading-2" style={{ marginBottom: "1rem" }}>
-                                    Virgin Coconut Oil &amp; Natural Products
-                                </h2>
-                                <div className="accent-bar" />
-                                <p className="text-large text-muted" style={{ marginTop: "1.5rem" }}>
-                                    INDOUS BIO is a subsidiary of Bharath Agrovet Industries Private Limited
-                                    promoting Virgin Coconut Oil (VCO) and its value-added products.
-                                    Virgin Coconut Oil is one of the healthiest oils extracted from fresh
-                                    coconut meat through cold-pressing, without heat or chemicals.
-                                </p>
+                            <div className={styles.indousImage}>
+                                <img
+                                    src="/images/operations/Farming.jpg"
+                                    alt="Indous Bio Virgin Coconut Oil"
+                                />
                             </div>
                         </AnimateOnScroll>
                         <AnimateOnScroll delay={2}>
-                            <div className={styles.indousImage}>
-                                <img
-                                    src={`${BASE}/images/indus.jpg`}
-                                    alt="Indous Bio products"
-                                />
+                            <div>
+                                <span className="overline">Indous Bio</span>
+                                <h2 className="heading-2" style={{ marginBottom: "1.25rem" }}>
+                                    Premium Virgin Coconut Oil
+                                </h2>
+                                <div className="accent-bar" />
+                                <p className="text-large text-muted" style={{ marginTop: "1.5rem" }}>
+                                    Produced from the finest coconuts of coastal Karnataka, our
+                                    virgin coconut oil is cold-pressed to preserve all natural
+                                    nutrients, aroma, and flavor.
+                                </p>
+                                <p className="text-muted" style={{ marginTop: "1rem" }}>
+                                    Indous Bio is a sister concern of Bharath Agrovet Industries,
+                                    extending our commitment to quality into the natural products space.
+                                </p>
+                                <a href="/contact" className="btn btn--primary" style={{ marginTop: "2rem" }}>
+                                    Enquire Now →
+                                </a>
                             </div>
                         </AnimateOnScroll>
                     </div>
                 </div>
             </section>
 
-            {/* VCO Banner */}
+            {/* VCO Banner with Overlay */}
             <div className={styles.vcoBanner}>
-                <img src={`${BASE}/images/banner_images/5.png`} alt="VCO" className={styles.vcoBg} />
-                <div className={styles.vcoOverlay}>
+                <img src="/images/operations/Breeders.jpg" alt="Virgin Coconut Oil" />
+                <div className={styles.vcoBannerOverlay}>
                     <AnimateOnScroll>
-                        <div className={styles.vcoContent}>
-                            <span className={styles.vcoTag}>★ Premium Quality</span>
-                            <h2 className="heading-2 text-white">Virgin Coconut Oil</h2>
-                            <p className={styles.vcoDesc}>
-                                Cold-pressed from fresh coconut meat. No chemicals.
-                                No heat processing. Pure, natural, and nutrient-rich.
+                        <div className={styles.vcoBannerContent}>
+                            <span className={styles.vcoBadge}>100% Pure &amp; Natural</span>
+                            <h2 className="heading-2 text-white" style={{ marginBottom: "1rem" }}>
+                                Nature&apos;s Most Versatile Oil
+                            </h2>
+                            <p className="text-large" style={{ color: "rgba(255,255,255,0.8)", lineHeight: 1.8 }}>
+                                Cold-pressed from hand-picked coconuts — retaining all the goodness
+                                of lauric acid, MCTs, and natural antioxidants.
                             </p>
                         </div>
                     </AnimateOnScroll>
                 </div>
             </div>
 
-            {/* Benefits */}
-            <section className="section section--cream">
+            {/* Benefits Grid */}
+            <section className="section">
                 <div className="container">
                     <AnimateOnScroll>
                         <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
-                            <span className="overline" style={{ justifyContent: "center" }}>Health Benefits</span>
+                            <span className="overline" style={{ justifyContent: "center" }}>Benefits</span>
                             <h2 className="heading-2">Why Virgin Coconut Oil?</h2>
+                            <div className="accent-bar accent-bar--center" />
                         </div>
                     </AnimateOnScroll>
-
                     <div className={styles.benefitsGrid}>
                         {benefits.map((b, i) => (
-                            <AnimateOnScroll key={b.title} delay={(i % 4) + 1}>
+                            <AnimateOnScroll key={b.title} delay={(i % 3) + 1}>
                                 <div className={styles.benefitCard}>
-                                    <span className={styles.benefitNum}>
-                                        {String(i + 1).padStart(2, "0")}
-                                    </span>
+                                    <div className={styles.benefitIcon}>{b.icon}</div>
                                     <h3 className={styles.benefitTitle}>{b.title}</h3>
                                     <p className={styles.benefitDesc}>{b.desc}</p>
                                 </div>
@@ -127,31 +115,46 @@ export default function IndousBioPage() {
                 </div>
             </section>
 
-            {/* Certifications — Logo Cards */}
-            <section className={styles.certSection}>
-                <div className={styles.certGrain} />
-                <div className="container" style={{ position: "relative", zIndex: 2 }}>
+            {/* Certifications */}
+            <section className="section section--cream">
+                <div className="container">
                     <AnimateOnScroll>
-                        <div style={{ textAlign: "center" }}>
-                            <span className="overline" style={{ justifyContent: "center" }}>Certifications</span>
-                            <h2 className="heading-3 text-white" style={{ marginBottom: "2rem" }}>
-                                Quality Assured
-                            </h2>
+                        <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+                            <span className="overline" style={{ justifyContent: "center" }}>Quality Assurance</span>
+                            <h2 className="heading-3">Our Certifications</h2>
+                            <div className="accent-bar accent-bar--center" />
                         </div>
                     </AnimateOnScroll>
-                    <div className={styles.certRow}>
-                        {certs.map((c, i) => (
-                            <AnimateOnScroll key={c.name} delay={i + 1}>
+                    <div className={styles.certGrid}>
+                        {certifications.map((c, i) => (
+                            <AnimateOnScroll key={c.title} delay={i + 1}>
                                 <div className={styles.certCard}>
-                                    <div className={styles.certLogoWrap}>
-                                        <img src={c.logo} alt={c.name} className={styles.certLogo} />
-                                    </div>
-                                    <h4 className={styles.certName}>{c.name}</h4>
-                                    <p className={styles.certFull}>{c.full}</p>
+                                    <div className={styles.certIconWrap}>{c.icon}</div>
+                                    <h4 className={styles.certTitle}>{c.title}</h4>
+                                    <p className={styles.certDesc}>{c.desc}</p>
                                 </div>
                             </AnimateOnScroll>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* Bottom CTA */}
+            <section className={styles.ctaSection}>
+                <div className={styles.ctaGrain} />
+                <div className="container" style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
+                    <AnimateOnScroll>
+                        <span className="overline" style={{ justifyContent: "center" }}>Explore More</span>
+                        <h2 className="heading-3 text-white" style={{ marginBottom: "1rem" }}>
+                            See Our Full Product Range
+                        </h2>
+                        <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 550, margin: "0 auto 2rem", lineHeight: 1.8 }}>
+                            Beyond virgin coconut oil — discover our complete range of premium poultry products.
+                        </p>
+                        <Link href="/products" className="btn btn--gold">
+                            View Products →
+                        </Link>
+                    </AnimateOnScroll>
                 </div>
             </section>
         </>
